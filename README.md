@@ -31,9 +31,9 @@ This cheat sheet is structured for developers, security researchers, and reverse
     + [Identifying Unreal Games](#identifying-unreal-games)
     + [Auto SDK Generation](#auto-sdk-generation)
     + [Auto Object Dumper (Python + pymem)](#auto-object-dumper-python--pymem)
-    + [GNames / GObjects Pattern Script (IDA/Ghidra)](#gnames--gobjects-pattern-script-idaghidra)
+    + [GNames and GObjects Pattern Script in IDA or Ghidra](#gnames-and-gobjects-pattern-script-in-ida-or-ghidra)
     + [UE4 .ini Logging Hack (Optional)](#ue4-ini-logging-hack-optional)
-    + [WebAssembly / Browser Recon (WebGL)](#webassembly--browser-recon-webgl)
+    + [WebAssembly and Browser Recon via WebGL](#webassembly-and-browser-recon-via-webgl)
     + [Static and Runtime Tools](#static-and-runtime-tools)
     + [Instrumentation Example (DevTools Console)](#instrumentation-example-devtools-console)
     + [.wasm Mapping](#wasm-mapping)
@@ -69,14 +69,14 @@ This cheat sheet is structured for developers, security researchers, and reverse
       - [Use Stealth Edit Plugin:](#use-stealth-edit-plugin-)
       - [Driver Tricks:](#driver-tricks-)
     + [Code Cave Injection](#code-cave-injection)
-    + [CE and Frida - Hybrid Debugging](#ce-and-frida--hybrid-debugging)
+    + [CE and Frida Hybrid Debugging](#ce-and-frida-hybrid-debugging)
   * [Injection and Cheat Code](#injection-and-cheat-code)
     + [Core Techniques](#core-techniques-2)
     + [Stealth Injection](#stealth-injection)
     + [Advanced Injection Strategies](#advanced-injection-strategies)
   * [Exploitation Techniques](#exploitation-techniques)
     + [Local Memory Exploits](#local-memory-exploits)
-    + [Stack Buffer Overflow (C/C++)](#stack-buffer-overflow-c-c)
+    + [Stack Buffer Overflow in C and C++](#stack-buffer-overflow-in-c-and-c)
     + [Heap Overflow in Item Parser](#heap-overflow-in-item-parser)
     + [Savegame Exploits](#savegame-exploits)
     + [Save Exploit Example:](#save-exploit-example-)
@@ -192,12 +192,12 @@ This cheat sheet is structured for developers, security researchers, and reverse
     + [Example ConsoleBot_RemotePlay.py](#example-consolebot-remoteplaypy)
   * [Cloud Gaming Exploits](#cloud-gaming-exploits)
     + [Threat Modeling: Cloud Gaming](#threat-modeling-cloud-gaming)
-    + [Latency Manipulation Attacks (Beginner to Intermediate)](#latency-manipulation-attacks-beginner-to-intermediate)
+    + [Latency Manipulation Attacks for All Levels](#latency-manipulation-attacks-for-all-levels)
     + [Tools Needed](#tools-needed-1)
     + [Example 1: Induced Lag to Exploit Hit Registration](#example-1-induced-lag-to-exploit-hit-registration)
     + [Use Cases](#use-cases)
     + [Adaptive Lagbots (Advanced)](#adaptive-lagbots-advanced)
-    + [Session Hijacking (Intermediate to Advanced)](#session-hijacking-intermediate-to-advanced)
+    + [Session Hijacking Techniques](#session-hijacking-techniques)
     + [Attack Surface](#attack-surface)
     + [Example: WebSocket Hijack in Browser](#example-websocket-hijack-in-browser)
     + [Unauthorized Access to Game Sessions](#unauthorized-access-to-game-sessions)
@@ -210,7 +210,7 @@ This cheat sheet is structured for developers, security researchers, and reverse
     + [CTF / Red Team Use Cases](#ctf---red-team-use-cases)
   * [VR/AR Game Hacking](#vr-ar-game-hacking)
     + [Target Platforms](#target-platforms)
-    + [Spatial Spoofing (Beginner to Advanced)](#spatial-spoofing-beginner-to-advanced)
+    + [Spatial Spoofing Techniques](#spatial-spoofing-techniques)
     + [Unity (IL2CPP) Position Injection](#unity-il2cpp-position-injection)
     + [OpenVR Pose Spoof (Linux/Win)](#openvr-pose-spoof-linux-win)
     + [Gesture / Input Spoofing](#gesture-input-spoofing)
@@ -221,7 +221,7 @@ This cheat sheet is structured for developers, security researchers, and reverse
   * [Blockchain and NFT Game Exploits](#blockchain-and-nft-game-exploits)
     + [Target Surfaces](#target-surfaces)
     + [Smart Contract Exploits](#smart-contract-exploits)
-    + [Example - Unprotected mint Call - Solidity](#example--unprotected-mint-call--solidity)
+    + [Example: Unprotected Mint Call in Solidity](#example-unprotected-mint-call-in-solidity)
     + [NFT Duplication](#nft-duplication)
     + [In-Game Currency Inflation](#in-game-currency-inflation)
     + [Wallet Integration Abuse](#wallet-integration-abuse)
@@ -277,7 +277,7 @@ This cheat sheet is structured for developers, security researchers, and reverse
     + [iOS Automation (Jailbreak Required)](#ios-automation-jailbreak-required)
     + [Advanced Tactics](#advanced-tactics)
     + [Anti-AntiCheat and Evasion](#anti-anticheat-and-evasion)
-  * [VM-Level Cheats (EPT/NPT/Bluepill)](#vm-level-cheats-ept-npt-bluepill)
+  * [VM-Level Cheats using EPT, NPT, and Bluepill](#vm-level-cheats-using-ept-npt-and-bluepill)
     + [Core Concepts](#core-concepts)
     + [Use Cases in Game Hacking](#use-cases-in-game-hacking)
     + [How It Works: EPT Memory View (Intel)](#how-it-works-ept-memory-view-intel)
@@ -611,7 +611,8 @@ for i in range(1024):
 
 ---
 
-### GNames / GObjects Pattern Script (IDA/Ghidra)
+### GNames and GObjects Pattern Script in IDA or Ghidra
+
 
 ```python
 # Ghidra - find GNames
@@ -641,7 +642,7 @@ r.DebugDraw = 1
 
 ---
 
-### WebAssembly / Browser Recon (WebGL)
+### WebAssembly and Browser Recon via WebGL
 
 ### Static and Runtime Tools
 
@@ -1098,7 +1099,7 @@ alloc(cave, 512, "game.exe+0x123456")
 
 ---
 
-### CE and Frida - Hybrid Debugging
+### CE and Frida Hybrid Debugging
 
 Combine CE scanning + Frida hooks:
 
@@ -1194,7 +1195,8 @@ Uncover deep exploit pathways in both client and server components of modern gam
 
 Classic memory corruption bugs, still common in native engine modules, mods, or legacy games.
 
-### Stack Buffer Overflow (C/C++)
+### Stack Buffer Overflow in C and C++
+
 
 
 ```c
@@ -2504,7 +2506,7 @@ Cloud gaming platforms (e.g., GeForce NOW, Xbox Cloud, Amazon Luna, Stadia) shif
 
 ---
 
-### Latency Manipulation Attacks (Beginner to Intermediate)
+### Latency Manipulation Attacks for All Levels
 
 Cloud gaming relies on low-latency video streaming and responsive inputs. Injecting controlled network jitter, delay, or packet reordering can desynchronize gameplay or force input failures.
 
@@ -2554,7 +2556,8 @@ while True:
 
 ---
 
-### Session Hijacking (Intermediate to Advanced)
+### Session Hijacking Techniques
+
 
 Cloud gaming platforms maintain browser-based or WebSocket-based session tokens for game stream authentication.
 
@@ -2660,7 +2663,7 @@ Virtual and Augmented Reality (VR/AR) introduce new attack vectors—spatial spo
 | Unity XR         | Unity’s VR abstraction    | Memory manipulation                |
 | ARKit / ARCore   | iOS/Android AR frameworks | Sensor spoofing                    |
 
-### Spatial Spoofing (Beginner to Advanced)
+### Spatial Spoofing Techniques
 
 Manipulate 6DoF (degrees of freedom) tracking to teleport, walk through walls, or gain speed boosts.
 
@@ -2748,7 +2751,7 @@ Blockchain-integrated games introduce new attack surfaces—smart contracts, tok
 
 ### Smart Contract Exploits
 
-### Example - Unprotected mint Call - Solidity
+### Example: Unprotected Mint Call in Solidity
 
 ```solidity
 function mintWeapon() public {
@@ -3454,7 +3457,7 @@ while True:
 | Frida detection  | Rename `frida-server`, patch symbol calls  |
 | Jailbreak (iOS)  | Use libhooker, patch `fileExistsAtPath()`  |
 ---
-## VM-Level Cheats (EPT/NPT/Bluepill)
+## VM-Level Cheats using EPT, NPT, and Bluepill
 
 By using hardware-assisted virtualization, we can intercept and manipulate game memory without directly modifying it — enabling powerful cheat capabilities while evading detection by anti-cheat systems like BattleEye, Vanguard, or EAC.
 
