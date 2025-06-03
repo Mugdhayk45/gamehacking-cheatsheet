@@ -1,4 +1,4 @@
-# 🎮 Game Hacking Cheat Sheet
+# Game Hacking Cheat Sheet
 
 Welcome to the definitive guide for game hacking. This repository compiles advanced techniques, tools, and strategies for dissecting and manipulating games, intended strictly for authorized testing, education, and Capture The Flag (CTF) research.
 
@@ -7,7 +7,7 @@ This cheat sheet is structured for developers, security researchers, and reverse
 
 ---
 ## Table of Contents
-- [🎮 Game Hacking Cheat Sheet](#---game-hacking-cheat-sheet)
+- [Game Hacking Cheat Sheet](#game-hacking-cheat-sheet)
   * [Table of Contents](#table-of-contents)
   * [Recon and Static Analysis](#recon-and-static-analysis)
     + [Core Techniques](#core-techniques)
@@ -19,31 +19,31 @@ This cheat sheet is structured for developers, security researchers, and reverse
       - [Ghidra Headless Automation](#ghidra-headless-automation)
     + [Obfuscation and Packing Detection Matrix](#obfuscation-and-packing-detection-matrix)
     + [Game-Specific Recon Signatures](#game-specific-recon-signatures)
-    + [Asset Recon (Deep Reverse)](#asset-recon--deep-reverse-)
+    + [Asset Recon (Deep Reverse)](#asset-recon-deep-reverse)
     + [Advanced Techniques](#advanced-techniques)
-  * [Engine Recon Automation (Unity, Unreal, etc.)](#engine-recon-automation--unity--unreal--etc-)
+  * [Engine Recon Automation (Unity, Unreal, etc.)](#engine-recon-automation-unity-unreal-etc)
     + [Goals of Engine Recon](#goals-of-engine-recon)
-    + [Unity Engine (Mono / IL2CPP)](#unity-engine--mono---il2cpp-)
+    + [Unity Engine (Mono / IL2CPP)](#unity-engine-mono-il2cpp)
     + [Identifying Unity Games](#identifying-unity-games)
     + [Mono Runtime Recon](#mono-runtime-recon)
     + [IL2CPP Automation](#il2cpp-automation)
-    + [Unreal Engine Recon (UE3/UE4/UE5)](#unreal-engine-recon--ue3-ue4-ue5-)
+    + [Unreal Engine Recon (UE3/UE4/UE5)](#unreal-engine-recon-ue3-ue4-ue5)
     + [Identifying Unreal Games](#identifying-unreal-games)
     + [Auto SDK Generation](#auto-sdk-generation)
-    + [Auto Object Dumper (Python + pymem)](#auto-object-dumper--python---pymem-)
-    + [GNames / GObjects Pattern Script (IDA/Ghidra)](#gnames---gobjects-pattern-script--ida-ghidra-)
-    + [UE4 .ini Logging Hack (Optional)](#ue4-ini-logging-hack--optional-)
-    + [WebAssembly / Browser Recon (WebGL)](#webassembly---browser-recon--webgl-)
+    + [Auto Object Dumper (Python + pymem)](#auto-object-dumper-python-pymem)
+    + [GNames / GObjects Pattern Script (IDA/Ghidra)](#gnames-gobjects-pattern-script-ida-ghidra)
+    + [UE4 .ini Logging Hack (Optional)](#ue4-ini-logging-hack-optional)
+    + [WebAssembly / Browser Recon (WebGL)](#webassembly-browser-recon-webgl)
     + [Static and Runtime Tools](#static-and-runtime-tools)
-    + [Instrumentation Example (DevTools Console)](#instrumentation-example--devtools-console-)
+    + [Instrumentation Example (DevTools Console)](#instrumentation-example-devtools-console)
     + [.wasm Mapping](#wasm-mapping)
     + [Lua Engine Recon](#lua-engine-recon)
     + [What to Hook](#what-to-hook)
-    + [Dynamic Lua Hijacking (Frida)](#dynamic-lua-hijacking--frida-)
+    + [Dynamic Lua Hijacking (Frida)](#dynamic-lua-hijacking-frida)
     + [Tools to Include](#tools-to-include)
     + [Engine-Specific Signatures](#engine-specific-signatures)
     + [Obfuscated Binary Detection and Unpacking](#obfuscated-binary-detection-and-unpacking)
-    + [C++ RTTI & Symbol Salvage](#c---rtti---symbol-salvage)
+    + [C and C++ RTTI and Symbol Salvage](#c-and-c-rtti-and-symbol-salvage)
   * [Dynamic Memory Analysis](#dynamic-memory-analysis)
     + [Core Techniques](#core-techniques-1)
     + [Deep Dive](#deep-dive)
@@ -51,17 +51,17 @@ This cheat sheet is structured for developers, security researchers, and reverse
     + [Advanced Live Tactics](#advanced-live-tactics)
     + [Advanced Techniques](#advanced-techniques-1)
     + [Heap Spraying](#heap-spraying)
-    + [Frida: Hooking malloc and free](#frida--hooking-malloc-and-free)
+    + [Frida: Hooking malloc and free](#frida-hooking-malloc-and-free)
     + [Live Allocation Tracker](#live-allocation-tracker)
     + [Memory Map Diffing](#memory-map-diffing)
     + [Dynamic Function Discovery via Frida](#dynamic-function-discovery-via-frida)
     + [Recommended Tools](#recommended-tools)
   * [Advanced Cheat Engine Usage](#advanced-cheat-engine-usage)
     + [Tools Needed](#tools-needed)
-    + [1. Pointer Path Tracing (Multilevel Pointer Maps)](#1-pointer-path-tracing--multilevel-pointer-maps-)
+    + [1. Pointer Path Tracing (Multilevel Pointer Maps)](#1-pointer-path-tracing-multilevel-pointer-maps)
     + [2. Code Injection w/ Auto Assembler](#2-code-injection-w--auto-assembler)
     + [AOBScan for ASLR-Busting](#aobscan-for-aslr-busting)
-    + [CE Mono Framework (Unity Games)](#ce-mono-framework--unity-games-)
+    + [CE Mono Framework (Unity Games)](#ce-mono-framework-unity-games)
     + [Lua Scripting for Runtime Cheats](#lua-scripting-for-runtime-cheats)
     + [Anti-AntiCheat Stealth Tactics](#anti-anticheat-stealth-tactics)
       - [Signature Evasion:](#signature-evasion-)
@@ -69,52 +69,52 @@ This cheat sheet is structured for developers, security researchers, and reverse
       - [Use Stealth Edit Plugin:](#use-stealth-edit-plugin-)
       - [Driver Tricks:](#driver-tricks-)
     + [Code Cave Injection](#code-cave-injection)
-    + [CE + Frida / Hybrid Debugging](#ce---frida---hybrid-debugging)
-  * [Injection & Cheat Code](#injection---cheat-code)
+    + [CE and Frida - Hybrid Debugging](#ce-and-frida---hybrid-debugging)
+  * [Injection and Cheat Code](#injection-and-cheat-code)
     + [Core Techniques](#core-techniques-2)
     + [Stealth Injection](#stealth-injection)
     + [Advanced Injection Strategies](#advanced-injection-strategies)
   * [Exploitation Techniques](#exploitation-techniques)
     + [Local Memory Exploits](#local-memory-exploits)
-    + [Stack Buffer Overflow (C/C++)](#stack-buffer-overflow--c-c---)
+    + [Stack Buffer Overflow (C/C++)](#stack-buffer-overflow-cc)
     + [Heap Overflow in Item Parser](#heap-overflow-in-item-parser)
     + [Savegame Exploits](#savegame-exploits)
     + [Save Exploit Example:](#save-exploit-example-)
-  * [Remote / Server-Side Exploits](#remote---server-side-exploits)
+  * [Remote and Server-Side Exploits](#remote-and-server-side-exploits)
     + [API Parameter Tampering](#api-parameter-tampering)
     + [JWT Token Forgery](#jwt-token-forgery)
     + [Logic Exploits](#logic-exploits)
     + [Network and Protocol Exploits](#network-and-protocol-exploits)
     + [UDP Fuzzing with Scapy](#udp-fuzzing-with-scapy)
     + [Custom Protocol Reversing](#custom-protocol-reversing)
-    + [Asset-Based RCE (Texture, Music, Map Files)](#asset-based-rce--texture--music--map-files-)
+    + [Asset-Based RCE (Texture, Music, Map Files)](#asset-based-rce-texture-music-map-files)
     + [Exploit Examples Matrix](#exploit-examples-matrix)
-    + [Advanced: Smart Contract & Game Logic Hacking](#advanced--smart-contract---game-logic-hacking)
+    + [Advanced: Smart Contract and Game Logic Hacking](#advanced--smart-contract-and-game-logic-hacking)
     + [Toolchain for Exploit Research](#toolchain-for-exploit-research)
   * [Replay System Hacking](#replay-system-hacking)
-    + [Replay Formats by Engine/Game](#replay-formats-by-engine-game)
+    + [Replay Formats by Engine-Game](#replay-formats-by-engine-game)
     + [Reverse Engineering Replay Formats](#reverse-engineering-replay-formats)
     + [General Steps](#general-steps)
     + [CS:GO Replay (.dem) Parsing](#cs-go-replay--dem--parsing)
-    + [Rocket League .replay Modding](#rocket-league-replay-modding)
-    + [Exploitable Replay Logic (RCE & Logic Abuse)](#exploitable-replay-logic--rce---logic-abuse-)
-    + [Exploit #1: Deserialization RCE](#exploit--1--deserialization-rce)
-    + [Exploit #2: Replay Re-Execution Abuse](#exploit--2--replay-re-execution-abuse)
-    + [Exploit #3: Server Replay Import Vulnerability](#exploit--3--server-replay-import-vulnerability)
+    + [Rocket League Replay Modding](#rocket-league-replay-modding)
+    + [Exploitable Replay Logic (RCE and Logic Abuse)](#exploitable-replay-logic-rce-and-logic-abuse)
+    + [Exploit Deserialization RCE](#exploit-deserialization-rce)
+    + [Exploit Replay Re-Execution Abuse](#exploit-replay-re-execution-abuse)
+    + [Exploit Server Replay Import Vulnerability](#exploit-server-replay-import-vulnerability)
     + [AI Bot Training via Replay Data](#ai-bot-training-via-replay-data)
     + [Replay Corruption Use-Cases](#replay-corruption-use-cases)
-    + [Tools & Libraries](#tools---libraries)
-  * [Replay Manipulation Example (Rocket League)](#replay-manipulation-example--rocket-league-)
+    + [Tools and Libraries](#tools-and-libraries)
+  * [Replay Manipulation Example (Rocket League)](#replay-manipulation-example-rocket-league)
     + [Red Team Use-Cases](#red-team-use-cases)
-    + [Defense / Mitigation](#defense---mitigation)
-  * [Aimbots, Clipping, and PvP Lag Exploits (PC and Console)](#aimbots--clipping--and-pvp-lag-exploits--pc-and-console-)
+    + [Defense andf Mitigation](#defense-andf-mitigation)
+  * [Aimbots - Clipping and PvP Lag Exploits for PC and Console](#aimbots-clipping-and-pvp-lag-exploits-for-pc-and-console)
     + [What This Covers](#what-this-covers)
     + [Aimbot Typologies](#aimbot-typologies)
-    + [Memory-Based Aimbot (PC)](#memory-based-aimbot--pc-)
-    + [Pixel-Based Aimbot (PC & Console)](#pixel-based-aimbot--pc---console-)
+    + [Memory-Based Aimbot (PC)](#memory-based-aimbot-pc)
+    + [Pixel-Based Aimbot (PC and Console)](#pixel-based-aimbot-pc-and-console)
     + [AI Aimbot (Neural Targeting)](#ai-aimbot--neural-targeting-)
     + [Console Aimbot (External)](#console-aimbot--external-)
-    + [Clipping (Wall Phasing & Map Glitches)](#clipping--wall-phasing---map-glitches-)
+    + [Clipping (Wall Phasing and Map Glitches)](#clipping-wall-phasing-and-map-glitches)
     + [Server-Side Teleport Desync](#server-side-teleport-desync)
     + [PvP Lag Exploits](#pvp-lag-exploits)
   * [Anti-Cheat Bypass Techniques](#anti-cheat-bypass-techniques)
@@ -144,7 +144,7 @@ This cheat sheet is structured for developers, security researchers, and reverse
     + [Advanced Engineering](#advanced-engineering)
   * [DRM Loader Staging](#drm-loader-staging)
     + [Key Concepts](#key-concepts)
-    + [Reverse Engineering Process (Staged DRMs)](#reverse-engineering-process--staged-drms-)
+    + [Reverse Engineering Process (Staged DRMs)](#reverse-engineering-process-staged-drms)
     + [1. Detect the Staging Behavior](#1-detect-the-staging-behavior)
     + [2. Locate the Real Entry Point](#2-locate-the-real-entry-point)
     + [3. Trace Loader Flow with x64dbg](#3-trace-loader-flow-with-x64dbg)
@@ -152,10 +152,10 @@ This cheat sheet is structured for developers, security researchers, and reverse
     + [5. VM Handler Identification](#5-vm-handler-identification)
     + [Nested Loader Unpacking](#nested-loader-unpacking)
     + [Anti-Debug/Anti-Dump Bypasses](#anti-debug-anti-dump-bypasses)
-    + [Manual Dump & Rebuild](#manual-dump---rebuild)
+    + [Manual Dump and Rebuild](#manual-dump-and-rebuild)
     + [Denuvo Specific Staging](#denuvo-specific-staging)
     + [Common Loader Signatures](#common-loader-signatures)
-    + [DRM Loader Fuzzing / Mutation](#drm-loader-fuzzing---mutation)
+    + [DRM Loader Fuzzing / Mutation](#drm-loader-fuzzing-mutation)
     + [DRM Tooling Ecosystem](#drm-tooling-ecosystem)
   * [AI/ML Augmentations](#ai-ml-augmentations)
     + [Core Techniques](#core-techniques-10)
@@ -164,17 +164,17 @@ This cheat sheet is structured for developers, security researchers, and reverse
   * [Hardware Hacks](#hardware-hacks)
     + [Core Techniques](#core-techniques-11)
   * [Firmware Analysis](#firmware-analysis)
-    + [UEFI Dump, Patch, and Injection](#uefi-dump--patch--and-injection)
+    + [UEFI Dump - Patch - and Injection](#uefi-dump-patch-and-injection)
     + [Tools](#tools)
     + [Dump UEFI from Flash](#dump-uefi-from-flash)
     + [Explore DXE Modules](#explore-dxe-modules)
     + [Patch Boot Flow](#patch-boot-flow)
     + [Inject DXE Module Payload](#inject-dxe-module-payload)
-    + [Console Boot ROM Reversing (Nintendo Switch, PS5, Xbox)](#console-boot-rom-reversing--nintendo-switch--ps5--xbox-)
+    + [Console Boot ROM Reversing (Nintendo Switch, PS5, Xbox)](#console-boot-rom-reversing-nintendo-switch-ps5-xbox)
     + [Nintendo Switch](#nintendo-switch)
     + [PS5](#ps5)
-    + [Xbox Series (Scarlett)](#xbox-series--scarlett-)
-    + [LV0 / LV1 Hypervisor Reversing (Sony Consoles)](#lv0---lv1-hypervisor-reversing--sony-consoles-)
+    + [Xbox Series (Scarlett)](#xbox-series-scarlett)
+    + [LV0 / LV1 Hypervisor Reversing (Sony Consoles)](#lv0-lv1-hypervisor-reversing-sony-consoles)
     + [Firmware Attack Matrix](#firmware-attack-matrix)
     + [Research-Level Firmware Tooling](#research-level-firmware-tooling)
     + [Defeating Firmware Protections](#defeating-firmware-protections)
@@ -183,128 +183,128 @@ This cheat sheet is structured for developers, security researchers, and reverse
     + [Advanced Hardware Techniques](#advanced-hardware-techniques)
   * [External Console Botting over Remote Play](#external-console-botting-over-remote-play)
     + [Architecture Diagram](#architecture-diagram)
-    + [How to Build It (PC/Phone → Console Bot)](#how-to-build-it--pc-phone---console-bot-)
+    + [How to Build It (PC/Phone → Console Bot)](#how-to-build-it-pc-phone-console-bot)
     + [1. Remote Stream Platform](#1-remote-stream-platform)
     + [2. Screen Capture and Detection](#2-screen-capture-and-detection)
     + [3. Input via Arduino or Teensy](#3-input-via-arduino-or-teensy)
-    + [4. Touch Automation on Phone (optional)](#4-touch-automation-on-phone--optional-)
-    + [Bot Use Case: ESO Mining/Farming Loop (Console)](#bot-use-case--eso-mining-farming-loop--console-)
-    + [Example ConsoleBot_RemotePlay.py`](#example-consolebot-remoteplaypy-)
+    + [4. Touch Automation on Phone (optional)](#4-touch-automation-on-phone-optional)
+    + [Bot Use Case: ESO Mining/Farming Loop (Console)](#bot-use-case-eso-mining-farming-loop-console)
+    + [Example ConsoleBot_RemotePlay.py](#example-consolebot-remoteplaypy)
   * [Cloud Gaming Exploits](#cloud-gaming-exploits)
-    + [Threat Modeling: Cloud Gaming](#threat-modeling--cloud-gaming)
-    + [Latency Manipulation Attacks (Beginner → Intermediate)](#latency-manipulation-attacks--beginner---intermediate-)
+    + [Threat Modeling: Cloud Gaming](#threat-modeling-cloud-gaming)
+    + [Latency Manipulation Attacks (Beginner → Intermediate)](#latency-manipulation-attacks-beginner-intermediate)
     + [Tools Needed](#tools-needed-1)
-    + [Example 1: Induced Lag to Exploit Hit Registration](#example-1--induced-lag-to-exploit-hit-registration)
+    + [Example 1: Induced Lag to Exploit Hit Registration](#example-1-induced-lag-to-exploit-hit-registration)
     + [Use Cases](#use-cases)
-    + [Adaptive Lagbots (Advanced)](#adaptive-lagbots--advanced-)
-    + [Session Hijacking (Intermediate → Advanced)](#session-hijacking--intermediate---advanced-)
+    + [Adaptive Lagbots (Advanced)](#adaptive-lagbots-advanced)
+    + [Session Hijacking (Intermediate → Advanced)](#session-hijacking-intermediate-advanced)
     + [Attack Surface](#attack-surface)
-    + [Example: WebSocket Hijack in Browser](#example--websocket-hijack-in-browser)
+    + [Example: WebSocket Hijack in Browser](#example-websocket-hijack-in-browser)
     + [Unauthorized Access to Game Sessions](#unauthorized-access-to-game-sessions)
     + [Target Examples](#target-examples)
     + [Cloud API Reverse Engineering](#cloud-api-reverse-engineering)
     + [Tools](#tools-1)
-    + [Frida TLS Unpinning (Android Cloud Client)](#frida-tls-unpinning--android-cloud-client-)
+    + [Frida TLS Unpinning (Android Cloud Client)](#frida-tls-unpinning-android-cloud-client)
     + [Interesting Endpoints to Target](#interesting-endpoints-to-target)
-    + [Bypassing Detection & Limits](#bypassing-detection---limits)
+    + [Bypassing Detection and Limits](#bypassing-detection-and-limits)
     + [CTF / Red Team Use Cases](#ctf---red-team-use-cases)
   * [VR/AR Game Hacking](#vr-ar-game-hacking)
     + [Target Platforms](#target-platforms)
-    + [Spatial Spoofing (Beginner → Advanced)](#spatial-spoofing--beginner---advanced-)
-    + [Unity (IL2CPP) Position Injection](#unity--il2cpp--position-injection)
-    + [OpenVR Pose Spoof (Linux/Win)](#openvr-pose-spoof--linux-win-)
-    + [Gesture / Input Spoofing](#gesture---input-spoofing)
-    + [Frida: Modify Controller Position](#frida--modify-controller-position)
-    + [Sensor Spoofing in AR (ARKit/ARCore)](#sensor-spoofing-in-ar--arkit-arcore-)
-    + [Android (Frida + SensorManager):](#android--frida---sensormanager--)
-    + [Red Team / CTF Use Cases](#red-team---ctf-use-cases)
+    + [Spatial Spoofing (Beginner → Advanced)](#spatial-spoofing-beginner-advanced)
+    + [Unity (IL2CPP) Position Injection](#unity-il2cpp-position-injection)
+    + [OpenVR Pose Spoof (Linux/Win)](#openvr-pose-spoof-linux-win)
+    + [Gesture / Input Spoofing](#gesture-input-spoofing)
+    + [Frida - Modify Controller Position](#frida-modify-controller-position)
+    + [Sensor Spoofing in AR (ARKit/ARCore)](#sensor-spoofing-in-ar-arkit-arcore-)
+    + [Android (Frida + SensorManager):](#android-frida-sensormanager)
+    + [Red Team / CTF Use Cases](#red-team-ctf-use-cases)
   * [Blockchain and NFT Game Exploits](#blockchain-and-nft-game-exploits)
     + [Target Surfaces](#target-surfaces)
     + [Smart Contract Exploits](#smart-contract-exploits)
-    + [Example: Unprotected mint() Call (Solidity)](#example--unprotected-mint---call--solidity-)
+    + [Example - Unprotected mint Call - Solidity](#example-unprotected-mint-call-solidity)
     + [NFT Duplication](#nft-duplication)
     + [In-Game Currency Inflation](#in-game-currency-inflation)
     + [Wallet Integration Abuse](#wallet-integration-abuse)
-    + [Red Team / CTF Use Cases](#red-team---ctf-use-cases-1)
-    + [Detection + Prevention (Defensive Devs)](#detection---prevention--defensive-devs-)
-  * [Zero-Knowledge Game Proofs (zk-Gaming)](#zero-knowledge-game-proofs--zk-gaming-)
-    + [What Are zk-SNARKs / zk-STARKs?](#what-are-zk-snarks---zk-starks-)
+    + [Red Team / CTF Use Cases](#red-team-ctf-use-cases-1)
+    + [Detection + Prevention (Defensive Devs)](#detection-prevention-defensive-devs)
+  * [Zero-Knowledge Game Proofs (zk-Gaming)](#zero-knowledge-game-proofs-zk-gaming)
+    + [What Are zk-SNARKs / zk-STARKs?](#what-are-zk-snarks-zk-starks)
     + [Use Cases in Web3 Gaming](#use-cases-in-web3-gaming)
     + [How to Detect Zero-Knowledge Proofs in Games](#how-to-detect-zero-knowledge-proofs-in-games)
     + [On-chain Signs](#on-chain-signs)
-    + [Frontend / Client Clues](#frontend---client-clues)
-    + [Example: zk-SNARK in Score Submission](#example--zk-snark-in-score-submission)
+    + [Frontend / Client Clues](#frontend-client-clues)
+    + [Example: zk-SNARK in Score Submission](#example-zk-snark-in-score-submission)
     + [Internals: zk-SNARK Components](#internals--zk-snark-components)
     + [How to Attack or Bypass](#how-to-attack-or-bypass)
     + [1. Client-Side Proof Forging](#1-client-side-proof-forging)
     + [2. Weak Circuit Logic](#2-weak-circuit-logic)
     + [3. Replay Proof Attack](#3-replay-proof-attack)
     + [4. Verifier Contract Injection](#4-verifier-contract-injection)
-    + [Advanced Vector: zk-STARK vs zk-SNARK](#advanced-vector--zk-stark-vs-zk-snark)
+    + [Advanced Vector: zk-STARK vs zk-SNARK](#advanced-vector-zk-stark-vs-zk-snark)
     + [Tools You Can Use](#tools-you-can-use)
-    + [Mitigation / Hardening (for defenders)](#mitigation---hardening--for-defenders-)
+    + [Mitigation / Hardening (for defenders)](#mitigation-hardening-for-defenders)
     + [Summary](#summary)
-  * [Remote Control / Command-and-Control Bots (C2 Bots)](#remote-control---command-and-control-bots--c2-bots-)
+  * [Remote Control / Command-and-Control Bots (C2 Bots)](#remote-control-command-and-control-bots-c2-bot)
     + [Threat Modeling and Use Case](#threat-modeling-and-use-case)
     + [Remote-Controlled Game Bot Skeleton](#remote-controlled-game-bot-skeleton)
-    + [Config Example (`config.json`)](#config-example---configjson--)
+    + [Config Example (`config.json`)](#config-example-configjson)
     + [Advanced Features to Add](#advanced-features-to-add)
-    + [Anti-Detection / Stealth](#anti-detection---stealth)
+    + [Anti-Detection / Stealth](#anti-detection-stealth)
     + [Persistence Tactics](#persistence-tactics)
-    + [Defensive Use (Red Team / Research Mode)](#defensive-use--red-team---research-mode-)
-    + [OPSEC + Detection Risk](#opsec---detection-risk)
+    + [Defensive Use (Red Team / Research Mode)](#defensive-use-red-team-research-mode)
+    + [OPSEC + Detection Risk](#opsec-detection-risk)
     + [Bonus: Socket-Based C2 Bot Skeleton](#bonus--socket-based-c2-bot-skeleton)
   * [Persistent Pathfinding and Resource Bots](#persistent-pathfinding-and-resource-bots)
     + [Capabilities](#capabilities)
-    + [Example Path Record Script (pymem + hotkeys)](#example-path-record-script--pymem---hotkeys-)
-    + [Action Triggers (Mining / Loot)](#action-triggers--mining---loot-)
+    + [Example Path Record Script (pymem + hotkeys)](#example-path-record-script-pymem-hotkeys)
+    + [Action Triggers (Mining / Loot)](#action-triggers-mining-loot)
     + [Event-Aware Bots](#event-aware-bots)
-    + [Visual Detection (OpenCV / YOLO)](#visual-detection--opencv---yolo-)
+    + [Visual Detection (OpenCV / YOLO)](#visual-detection-opencv-yolo)
     + [Anti-Ban Stealth](#anti-ban-stealth)
-  * [Mobile Game Hacking (Android & iOS)](#mobile-game-hacking--android---ios-)
+  * [Mobile Game Hacking (Android and iOS)](#mobile-game-hacking--android-and-ios-)
     + [Overview](#overview)
-    + [APK Reverse Engineering (Android)](#apk-reverse-engineering--android-)
-      - [APK Decompilation (Beginner)](#apk-decompilation--beginner-)
+    + [APK Reverse Engineering (Android)](#apk-reverse-engineering-android)
+      - [APK Decompilation (Beginner)](#apk-decompilation-beginner)
     + [Smali Modification (Intermediate)](#smali-modification--intermediate-)
-    + [Frida for Android/iOS (Dynamic Instrumentation)](#frida-for-android-ios--dynamic-instrumentation-)
+    + [Frida for Android and iOS (Dynamic Instrumentation)](#frida-for-android-and-ios-dynamic-instrumentation)
     + [Setup (Android)](#setup--android-)
-    + [Example: Hooking Currency Function](#example--hooking-currency-function)
-    + [Frida on iOS (Advanced)](#frida-on-ios--advanced-)
+    + [Example: Hooking Currency Function](#example-hooking-currency-function)
+    + [Frida on iOS (Advanced)](#frida-on-ios-advanced)
     + [Android Root Detection Bypass](#android-root-detection-bypass)
     + [iOS Jailbreak Detection Bypass](#ios-jailbreak-detection-bypass)
-    + [Mobile Input Automation & Bots](#mobile-input-automation---bots)
+    + [Mobile Input Automation and Bots](#mobile-input-automation-and-bots)
     + [Android Automation](#android-automation)
-    + [iOS Automation (Jailbreak Required)](#ios-automation--jailbreak-required-)
+    + [iOS Automation (Jailbreak Required)](#ios-automation-jailbreak-required)
     + [Advanced Tactics](#advanced-tactics)
     + [Anti-AntiCheat and Evasion](#anti-anticheat-and-evasion)
-  * [VM-Level Cheats (EPT/NPT/Bluepill)](#vm-level-cheats--ept-npt-bluepill-)
+  * [VM-Level Cheats (EPT/NPT/Bluepill)](#vm-level-cheats-ept-npt-bluepill)
     + [Core Concepts](#core-concepts)
     + [Use Cases in Game Hacking](#use-cases-in-game-hacking)
-    + [How It Works: EPT Memory View (Intel)](#how-it-works--ept-memory-view--intel-)
+    + [How It Works: EPT Memory View (Intel)](#how-it-works-ept-memory-view-intel)
     + [Techniques](#techniques)
-    + [1. Custom Hypervisor (KVM, Bare-metal, SimpleVisor)](#1-custom-hypervisor--kvm--bare-metal--simplevisor-)
+    + [1. Custom Hypervisor (KVM, Bare-metal, SimpleVisor)](#1-custom-hypervisor-kvm-bare-metal-simplevisor)
     + [2. Hyper-V Based External ESP](#2-hyper-v-based-external-esp)
     + [3. Memory Redirection via EPT Hooks](#3-memory-redirection-via-ept-hooks)
     + [4. Bluepill Hypervisor Injection](#4-bluepill-hypervisor-injection)
     + [Anti-Detection Advantages](#anti-detection-advantages)
     + [Advanced Applications](#advanced-applications)
     + [Tooling Ecosystem](#tooling-ecosystem)
-    + [Real-World Exploit Flow: Silent ESP via LibVMI](#real-world-exploit-flow--silent-esp-via-libvmi)
+    + [Real-World Exploit Flow: Silent ESP via LibVMI](#real-world-exploit-flow-silent-esp-via-libvmi)
     + [Research Tips](#research-tips)
   * [Anti-AntiCheat Signatures and Patches](#anti-anticheat-signatures-and-patches)
     + [Why This Matters](#why-this-matters)
-    + [File Signature Detection (Static)](#file-signature-detection--static-)
+    + [File Signature Detection (Static)](#file-signature-detection-static)
       - [Common Flagged Strings](#common-flagged-strings)
       - [Mitigation Techniques](#mitigation-techniques)
     + [IAT and EAT Hook Detection](#iat-and-eat-hook-detection)
       - [Detection Example](#detection-example)
       - [Mitigation](#mitigation)
     + [Memory Signature Detection](#memory-signature-detection)
-      - [Example: ESP Hook](#example--esp-hook)
+      - [Example: ESP Hook](#example-esp-hook)
       - [Mitigation](#mitigation-1)
-    + [Process-Level Detection (PEB/Handles)](#process-level-detection--peb-handles-)
+    + [Process-Level Detection (PEB/Handles)](#process-level-detection-peb-handles)
       - [Evasion Examples](#evasion-examples)
-    + [Kernel-Mode Detection (SSDT, IRP, Callbacks)](#kernel-mode-detection--ssdt--irp--callbacks-)
+    + [Kernel-Mode Detection (SSDT, IRP, Callbacks)](#kernel-mode-detection-ssdt-irp-callbacks)
       - [Mitigation](#mitigation-2)
     + [Behavioral Detection Bypass](#behavioral-detection-bypass)
       - [Mitigation Techniques](#mitigation-techniques-1)
@@ -316,13 +316,11 @@ This cheat sheet is structured for developers, security researchers, and reverse
     + [Quantum-Enhanced Analysis](#quantum-enhanced-analysis)
     + [Quantum-Resistant Hacking](#quantum-resistant-hacking)
     + [Experimental Toolchain](#experimental-toolchain)
-    + [Example: Grover's Algorithm for Key Search](#example--grover-s-algorithm-for-key-search)
+    + [Example: Grover's Algorithm for Key Search](#example-grovers-algorithm-for-key-search)
     + [Challenges and Limitations](#challenges-and-limitations)
     + [Future Outlook](#future-outlook)
   * [Tool Pairings](#tool-pairings)
   * [Disclaimer](#disclaimer)
-
-
 
 ---
 
@@ -755,7 +753,8 @@ with open("global-metadata.dat", "rb") as f:
 - Dump real .text from memory using Scylla
 - Rebuild IAT with PE-bear or x64dbg IAT Rebuilder
 
-### C++ RTTI & Symbol Salvage
+### C and C++ RTTI and Symbol Salvage
+
 ```c
 // IDA script: Recover class names
 auto rtti = get_rtti_struct(ea);
@@ -1099,7 +1098,7 @@ alloc(cave, 512, "game.exe+0x123456")
 
 ---
 
-### CE + Frida / Hybrid Debugging
+### CE and Frida - Hybrid Debugging
 
 Combine CE scanning + Frida hooks:
 
@@ -1122,7 +1121,7 @@ Interceptor.attach(ptr("0xDEADBEEF"), {
 ```
 
 ---
-## Injection & Cheat Code
+## Injection and Cheat Code
 
 Inject cheats with surgical precision using these elite methods.
 
@@ -1195,7 +1194,8 @@ Uncover deep exploit pathways in both client and server components of modern gam
 
 Classic memory corruption bugs, still common in native engine modules, mods, or legacy games.
 
-###  Stack Buffer Overflow (C/C++)
+### Stack Buffer Overflow (C/C++)
+
 
 ```c
 void parse_chat(char *msg) {
@@ -1246,7 +1246,7 @@ Modern games often parse custom `.sav`, `.json`, or `.bin` save formats.
 
 **Tools:** Radamsa, AFL++, zzuf, boofuzz, custom grammar fuzzers
 
-## Remote / Server-Side Exploits
+## Remote and Server-Side Exploits
 
 Game backends often expose vulnerable APIs or real-time logic bugs.
 
@@ -1346,7 +1346,7 @@ Use: Peach Fuzzer, Fuzzino, or custom asset generators
 | Script Injection      | Lua-enabled titles   | `"name": "x'); os.execute('calc.exe') --"`         |
 | Malicious Asset File  | Texture/audio/map    | Triggers in vulnerable parsers (e.g., `libpng`)    |
 
-### Advanced: Smart Contract & Game Logic Hacking
+### Advanced: Smart Contract and Game Logic Hacking
 
 For blockchain-based games:
 
@@ -1390,7 +1390,7 @@ Modern games often implement deterministic replay systems that log input, entity
 
 ---
 
-### Replay Formats by Engine/Game
+### Replay Formats by Engine-Game
 
 | Game / Engine       | Format        | Notes                                         |
 |---------------------|---------------|-----------------------------------------------|
@@ -1417,7 +1417,7 @@ Modern games often implement deterministic replay systems that log input, entity
 **Events include:** `svc_PacketEntities`, `svc_GameEvent`, `svc_TempEntities`  
 **Cheat use-case:** Extract tick-perfect player behavior  
 
-### Rocket League .replay Modding
+### Rocket League Replay Modding
 
 - JSON + protobuf + Zlib  
 - **Tools:** `BakkesMod`, `ReplayParser`, Python decoder  
@@ -1425,9 +1425,9 @@ Modern games often implement deterministic replay systems that log input, entity
 
 ---
 
-### Exploitable Replay Logic (RCE & Logic Abuse)
+### Exploitable Replay Logic (RCE and Logic Abuse)
 
-### Exploit #1: Deserialization RCE
+### Exploit Deserialization RCE
 
 ```json
 {
@@ -1439,7 +1439,7 @@ Affected engines: Python-based, Unity with insecure JSON
 
 ---
 
-### Exploit #2: Replay Re-Execution Abuse
+### Exploit Replay Re-Execution Abuse
 
 ```lua
 eventQueue = {
@@ -1452,7 +1452,7 @@ Hijack scripting logic in Lua/Unreal mod games
 
 ---
 
-### Exploit #3: Server Replay Import Vulnerability
+### Exploit Server Replay Import Vulnerability
 
 ```bash
 zip --junk-paths sc2.dmp ../AppData/Local/Blizzard/token.txt
@@ -1485,7 +1485,7 @@ for tick in replay['frames']:
 
 ---
 
-### Tools & Libraries
+### Tools and Libraries
 
 | Tool           | Language | Target Game      |
 |----------------|----------|------------------|
@@ -1530,7 +1530,7 @@ with open("modded.replay", "wb") as f:
 
 ---
 
-### Defense / Mitigation
+### Defense andf Mitigation
 
 | Weakness              | Defense                                |
 |-----------------------|----------------------------------------|
@@ -1542,7 +1542,7 @@ with open("modded.replay", "wb") as f:
 
 ---
 
-## Aimbots, Clipping, and PvP Lag Exploits (PC and Console)
+## Aimbots - Clipping and PvP Lag Exploits for PC and Console
 
 This section delves into weaponized automation, physics manipulation, and lag-based game logic abuse in competitive multiplayer contexts. These techniques simulate adversarial behavior to enhance defensive strategies and understand vulnerabilities in game systems.
 
@@ -1593,7 +1593,7 @@ void aim_at_target(DWORD base, Vector3 my_pos, Vector3 enemy_pos) {
 
 ---
 
-### Pixel-Based Aimbot (PC & Console)
+### Pixel-Based Aimbot (PC and Console)
 
 ```python
 import pyautogui
@@ -1660,7 +1660,7 @@ void aim_and_shoot(int x_offset, int y_offset) {
 
 ---
 
-### Clipping (Wall Phasing & Map Glitches)
+### Clipping (Wall Phasing and Map Glitches)
 
 ```c
 void disable_collision(DWORD player_ptr) {
@@ -2077,7 +2077,7 @@ Use: Scylla, PE-sieve, Cheat Engine
 
 **Tools:** ScyllaHide, TitanHide, PE-sieve
 
-### Manual Dump & Rebuild
+### Manual Dump and Rebuild
 
 ```python
 import frida
@@ -2199,7 +2199,7 @@ From BIOS/UEFI to hypervisors and bootloaders, firmware manipulation allows for:
 - Bypassing secure boot, signature validation, and TPM/TrustZone
 - Full control over memory, virtualization, and root-level telemetry
 
-### UEFI Dump, Patch, and Injection
+### UEFI Dump - Patch - and Injection
 
 Modern PCs boot via UEFI (Unified Extensible Firmware Interface), replacing legacy BIOS. UEFI is programmable and includes DXE modules that enforce secure boot and TPM communication.
 
@@ -2455,7 +2455,7 @@ This works **100% externally**. No modding, no memory hooks.
 
 ---
 
-### Example ConsoleBot_RemotePlay.py`
+### Example ConsoleBot_RemotePlay.py
 
 ```python
 # Automates node detection + input for Remote Play ESO bot
@@ -2628,7 +2628,7 @@ Java.perform(function() {
 
 ---
 
-### Bypassing Detection & Limits
+### Bypassing Detection and Limits
 
 | Technique             | Description                               | Mitigation                             |
 |------------------------|-------------------------------------------|-----------------------------------------|
@@ -2696,7 +2696,7 @@ Modify gesture recognition logic for:
 - Infinite grab reach in Half-Life: Alyx
 - Aimbot-style teleporting in Onward VR
 
-### Frida: Modify Controller Position
+### Frida - Modify Controller Position
 
 ```js
 Interceptor.attach(Module.findExportByName("OculusVR.dll", "GetControllerPose"), {
@@ -2748,7 +2748,7 @@ Blockchain-integrated games introduce new attack surfaces—smart contracts, tok
 
 ### Smart Contract Exploits
 
-### Example: Unprotected mint() Call (Solidity)
+### Example - Unprotected mint Call - Solidity
 
 ```solidity
 function mintWeapon() public {
@@ -3226,7 +3226,7 @@ if results.pandas().xyxy[0]:
 - Rotate server/logins
 
 ---
-## Mobile Game Hacking (Android & iOS)
+## Mobile Game Hacking (Android and iOS)
 
 Explore the offensive security techniques and reverse engineering approaches used to dissect, modify, and automate mobile games. This section covers app decompilation, runtime instrumentation, anti-cheat bypassing, and automation using modern tools like Frida, Magisk, APKTool, and more.
 
@@ -3297,7 +3297,7 @@ adb install -r modded.apk
 
 ---
 
-### Frida for Android/iOS (Dynamic Instrumentation)
+### Frida for Android and iOS (Dynamic Instrumentation)
 
 ### Setup (Android)
 
@@ -3403,7 +3403,7 @@ Interceptor.attach(Module.findExportByName(null, "stat"), {
 
 ---
 
-### Mobile Input Automation & Bots
+### Mobile Input Automation and Bots
 
 ### Android Automation
 
