@@ -8,15 +8,16 @@ This cheat sheet is structured for developers, security researchers, and reverse
 ---
 ## Table of Contents
 - [🎮 Game Hacking Cheat Sheet](#---game-hacking-cheat-sheet)
-  * [Recon & Static Analysis](#recon---static-analysis)
+  * [Table of Contents](#table-of-contents)
+  * [Recon and Static Analysis](#recon-and-static-analysis)
     + [Core Techniques](#core-techniques)
-    + [Deep Dive & Expansion](#deep-dive---expansion)
+    + [Deep Dive and Expansion](#deep-dive-and-expansion)
       - [Binary Forensics](#binary-forensics)
       - [Cross-Platform Analysis](#cross-platform-analysis)
       - [Obfuscation Breakers](#obfuscation-breakers)
       - [Real-World Metadata Recon](#real-world-metadata-recon)
       - [Ghidra Headless Automation](#ghidra-headless-automation)
-    + [Obfuscation & Packing Detection Matrix](#obfuscation---packing-detection-matrix)
+    + [Obfuscation and Packing Detection Matrix](#obfuscation-and-packing-detection-matrix)
     + [Game-Specific Recon Signatures](#game-specific-recon-signatures)
     + [Asset Recon (Deep Reverse)](#asset-recon--deep-reverse-)
     + [Advanced Techniques](#advanced-techniques)
@@ -33,7 +34,7 @@ This cheat sheet is structured for developers, security researchers, and reverse
     + [GNames / GObjects Pattern Script (IDA/Ghidra)](#gnames---gobjects-pattern-script--ida-ghidra-)
     + [UE4 .ini Logging Hack (Optional)](#ue4-ini-logging-hack--optional-)
     + [WebAssembly / Browser Recon (WebGL)](#webassembly---browser-recon--webgl-)
-    + [Static & Runtime Tools](#static---runtime-tools)
+    + [Static and Runtime Tools](#static-and-runtime-tools)
     + [Instrumentation Example (DevTools Console)](#instrumentation-example--devtools-console-)
     + [.wasm Mapping](#wasm-mapping)
     + [Lua Engine Recon](#lua-engine-recon)
@@ -41,7 +42,7 @@ This cheat sheet is structured for developers, security researchers, and reverse
     + [Dynamic Lua Hijacking (Frida)](#dynamic-lua-hijacking--frida-)
     + [Tools to Include](#tools-to-include)
     + [Engine-Specific Signatures](#engine-specific-signatures)
-    + [Obfuscated Binary Detection & Unpacking](#obfuscated-binary-detection---unpacking)
+    + [Obfuscated Binary Detection and Unpacking](#obfuscated-binary-detection-and-unpacking)
     + [C++ RTTI & Symbol Salvage](#c---rtti---symbol-salvage)
   * [Dynamic Memory Analysis](#dynamic-memory-analysis)
     + [Core Techniques](#core-techniques-1)
@@ -83,7 +84,7 @@ This cheat sheet is structured for developers, security researchers, and reverse
     + [API Parameter Tampering](#api-parameter-tampering)
     + [JWT Token Forgery](#jwt-token-forgery)
     + [Logic Exploits](#logic-exploits)
-    + [Network & Protocol Exploits](#network---protocol-exploits)
+    + [Network and Protocol Exploits](#network-and-protocol-exploits)
     + [UDP Fuzzing with Scapy](#udp-fuzzing-with-scapy)
     + [Custom Protocol Reversing](#custom-protocol-reversing)
     + [Asset-Based RCE (Texture, Music, Map Files)](#asset-based-rce--texture--music--map-files-)
@@ -106,7 +107,7 @@ This cheat sheet is structured for developers, security researchers, and reverse
   * [Replay Manipulation Example (Rocket League)](#replay-manipulation-example--rocket-league-)
     + [Red Team Use-Cases](#red-team-use-cases)
     + [Defense / Mitigation](#defense---mitigation)
-  * [Aimbots, Clipping, and PvP Lag Exploits (PC & Console)](#aimbots--clipping--and-pvp-lag-exploits--pc---console-)
+  * [Aimbots, Clipping, and PvP Lag Exploits (PC and Console)](#aimbots--clipping--and-pvp-lag-exploits--pc-and-console-)
     + [What This Covers](#what-this-covers)
     + [Aimbot Typologies](#aimbot-typologies)
     + [Memory-Based Aimbot (PC)](#memory-based-aimbot--pc-)
@@ -128,13 +129,13 @@ This cheat sheet is structured for developers, security researchers, and reverse
     + [Engine-Specific Exploits](#engine-specific-exploits)
   * [APT-Level Techniques](#apt-level-techniques)
     + [Core Techniques](#core-techniques-6)
-    + [Firmware & Hardware](#firmware---hardware)
+    + [Firmware and Hardware](#firmware-and-hardware)
     + [Advanced Techniques](#advanced-techniques-3)
-  * [Automation & Fuzzing](#automation---fuzzing)
+  * [Automation and Fuzzing](#automation-and-fuzzing)
     + [Core Techniques](#core-techniques-7)
     + [AI-Powered Bots](#ai-powered-bots)
     + [Advanced Fuzzing](#advanced-fuzzing)
-  * [DRM & Obfuscation Bypass](#drm---obfuscation-bypass)
+  * [DRM and Obfuscation Bypass](#drm-and-obfuscation-bypass)
     + [Core Techniques](#core-techniques-8)
     + [Denuvo Cracking](#denuvo-cracking)
     + [Advanced Techniques](#advanced-techniques-4)
@@ -155,7 +156,7 @@ This cheat sheet is structured for developers, security researchers, and reverse
     + [Denuvo Specific Staging](#denuvo-specific-staging)
     + [Common Loader Signatures](#common-loader-signatures)
     + [DRM Loader Fuzzing / Mutation](#drm-loader-fuzzing---mutation)
-    + [DRM Tooling Ecosystem](#--drm-tooling-ecosystem)
+    + [DRM Tooling Ecosystem](#drm-tooling-ecosystem)
   * [AI/ML Augmentations](#ai-ml-augmentations)
     + [Core Techniques](#core-techniques-10)
     + [Generative Cheats](#generative-cheats)
@@ -184,7 +185,7 @@ This cheat sheet is structured for developers, security researchers, and reverse
     + [Architecture Diagram](#architecture-diagram)
     + [How to Build It (PC/Phone → Console Bot)](#how-to-build-it--pc-phone---console-bot-)
     + [1. Remote Stream Platform](#1-remote-stream-platform)
-    + [2. Screen Capture & Detection](#2-screen-capture---detection)
+    + [2. Screen Capture and Detection](#2-screen-capture-and-detection)
     + [3. Input via Arduino or Teensy](#3-input-via-arduino-or-teensy)
     + [4. Touch Automation on Phone (optional)](#4-touch-automation-on-phone--optional-)
     + [Bot Use Case: ESO Mining/Farming Loop (Console)](#bot-use-case--eso-mining-farming-loop--console-)
@@ -217,7 +218,7 @@ This cheat sheet is structured for developers, security researchers, and reverse
     + [Sensor Spoofing in AR (ARKit/ARCore)](#sensor-spoofing-in-ar--arkit-arcore-)
     + [Android (Frida + SensorManager):](#android--frida---sensormanager--)
     + [Red Team / CTF Use Cases](#red-team---ctf-use-cases)
-  * [🪙 Blockchain and NFT Game Exploits](#---blockchain-and-nft-game-exploits)
+  * [Blockchain and NFT Game Exploits](#blockchain-and-nft-game-exploits)
     + [Target Surfaces](#target-surfaces)
     + [Smart Contract Exploits](#smart-contract-exploits)
     + [Example: Unprotected mint() Call (Solidity)](#example--unprotected-mint---call--solidity-)
@@ -244,7 +245,7 @@ This cheat sheet is structured for developers, security researchers, and reverse
     + [Mitigation / Hardening (for defenders)](#mitigation---hardening--for-defenders-)
     + [Summary](#summary)
   * [Remote Control / Command-and-Control Bots (C2 Bots)](#remote-control---command-and-control-bots--c2-bots-)
-    + [Threat Modeling & Use Case](#threat-modeling---use-case)
+    + [Threat Modeling and Use Case](#threat-modeling-and-use-case)
     + [Remote-Controlled Game Bot Skeleton](#remote-controlled-game-bot-skeleton)
     + [Config Example (`config.json`)](#config-example---configjson--)
     + [Advanced Features to Add](#advanced-features-to-add)
@@ -253,7 +254,7 @@ This cheat sheet is structured for developers, security researchers, and reverse
     + [Defensive Use (Red Team / Research Mode)](#defensive-use--red-team---research-mode-)
     + [OPSEC + Detection Risk](#opsec---detection-risk)
     + [Bonus: Socket-Based C2 Bot Skeleton](#bonus--socket-based-c2-bot-skeleton)
-  * [Persistent Pathfinding & Resource Bots](#persistent-pathfinding---resource-bots)
+  * [Persistent Pathfinding and Resource Bots](#persistent-pathfinding-and-resource-bots)
     + [Capabilities](#capabilities)
     + [Example Path Record Script (pymem + hotkeys)](#example-path-record-script--pymem---hotkeys-)
     + [Action Triggers (Mining / Loot)](#action-triggers--mining---loot-)
@@ -275,7 +276,7 @@ This cheat sheet is structured for developers, security researchers, and reverse
     + [Android Automation](#android-automation)
     + [iOS Automation (Jailbreak Required)](#ios-automation--jailbreak-required-)
     + [Advanced Tactics](#advanced-tactics)
-    + [Anti-AntiCheat & Evasion](#anti-anticheat---evasion)
+    + [Anti-AntiCheat and Evasion](#anti-anticheat-and-evasion)
   * [VM-Level Cheats (EPT/NPT/Bluepill)](#vm-level-cheats--ept-npt-bluepill-)
     + [Core Concepts](#core-concepts)
     + [Use Cases in Game Hacking](#use-cases-in-game-hacking)
@@ -295,7 +296,7 @@ This cheat sheet is structured for developers, security researchers, and reverse
     + [File Signature Detection (Static)](#file-signature-detection--static-)
       - [Common Flagged Strings](#common-flagged-strings)
       - [Mitigation Techniques](#mitigation-techniques)
-    + [IAT & EAT Hook Detection](#iat---eat-hook-detection)
+    + [IAT and EAT Hook Detection](#iat-and-eat-hook-detection)
       - [Detection Example](#detection-example)
       - [Mitigation](#mitigation)
     + [Memory Signature Detection](#memory-signature-detection)
@@ -307,7 +308,7 @@ This cheat sheet is structured for developers, security researchers, and reverse
       - [Mitigation](#mitigation-2)
     + [Behavioral Detection Bypass](#behavioral-detection-bypass)
       - [Mitigation Techniques](#mitigation-techniques-1)
-    + [Anti-Screenshot & Video Detection](#anti-screenshot---video-detection)
+    + [Anti-Screenshot and Video Detection](#anti-screenshot-and-video-detection)
       - [Bypass Examples](#bypass-examples)
     + [Anti-AntiCheat Summary Table](#anti-anticheat-summary-table)
   * [Quantum Computing Assisted Game Hacking](#quantum-computing-assisted-game-hacking)
@@ -316,15 +317,16 @@ This cheat sheet is structured for developers, security researchers, and reverse
     + [Quantum-Resistant Hacking](#quantum-resistant-hacking)
     + [Experimental Toolchain](#experimental-toolchain)
     + [Example: Grover's Algorithm for Key Search](#example--grover-s-algorithm-for-key-search)
-    + [Challenges & Limitations](#challenges---limitations)
+    + [Challenges and Limitations](#challenges-and-limitations)
     + [Future Outlook](#future-outlook)
   * [Tool Pairings](#tool-pairings)
   * [Disclaimer](#disclaimer)
 
 
+
 ---
 
-## Recon & Static Analysis
+## Recon and Static Analysis
 
 Unravel game internals with these elite static analysis techniques.
 
@@ -342,7 +344,7 @@ Unravel game internals with these elite static analysis techniques.
 
 ---
 
-### Deep Dive & Expansion
+### Deep Dive and Expansion
 
 Static analysis is often underutilized—maximize it with advanced correlation and metadata extraction.
 
@@ -425,7 +427,7 @@ Static analysis is often underutilized—maximize it with advanced correlation a
 
 ---
 
-### Obfuscation & Packing Detection Matrix
+### Obfuscation and Packing Detection Matrix
 
 | Obfuscation Technique        | Detection Method                      | Tool(s)                         |
 |-----------------------------|----------------------------------------|----------------------------------|
@@ -643,7 +645,7 @@ r.DebugDraw = 1
 
 ### WebAssembly / Browser Recon (WebGL)
 
-### Static & Runtime Tools
+### Static and Runtime Tools
 
 - wasm-decompile (binaryen)
 - wasm2wat (WABT)
@@ -732,7 +734,7 @@ Use these indicators to fingerprint game engines and enable targeted reversing s
 | CryEngine        | CrySystem.dll, CEntity::Update() | Export table symbols or IDA auto-analysis     |
 | Godot            | .gd scripts, main_loop strings | Custom bytecode and scene structure patterns     |
 
-### Obfuscated Binary Detection & Unpacking
+### Obfuscated Binary Detection and Unpacking
 **High-Entropy Sections (VMProtect, Themida, Enigma)**
 
 ```sh
@@ -1289,7 +1291,7 @@ Use: [jwt.io](https://jwt.io), `pyjwt`, or `node-jose`.
 
 Use `ffuf`, `Intruder`, or Python `asyncio` spammer.
 
-### Network & Protocol Exploits
+### Network and Protocol Exploits
 
 Low-level network attacks can crash or take control of networked games.
 
@@ -1540,7 +1542,7 @@ with open("modded.replay", "wb") as f:
 
 ---
 
-## Aimbots, Clipping, and PvP Lag Exploits (PC & Console)
+## Aimbots, Clipping, and PvP Lag Exploits (PC and Console)
 
 This section delves into weaponized automation, physics manipulation, and lag-based game logic abuse in competitive multiplayer contexts. These techniques simulate adversarial behavior to enhance defensive strategies and understand vulnerabilities in game systems.
 
@@ -1852,7 +1854,7 @@ Employ bleeding-edge hacks at the APT level.
 
 ---
 
-### Firmware & Hardware
+### Firmware and Hardware
 
 - UEFI Rootkits: Flash modded firmware via CH341A
 - GPU Malware: CUDA shellcode via `cuMemAlloc + cuLaunchKernel`
@@ -1867,7 +1869,7 @@ Employ bleeding-edge hacks at the APT level.
 - Steganography: Embed payloads in textures/assets
 
 ---
-## Automation & Fuzzing
+## Automation and Fuzzing
 
 Automate and break games with these tools.
 
@@ -1904,7 +1906,7 @@ Automate and break games with these tools.
 
 ---
 
-## DRM & Obfuscation Bypass
+## DRM and Obfuscation Bypass
 
 Crack protections with these advanced techniques.
 
@@ -2372,7 +2374,7 @@ Use:
 
 ---
 
-### 2. Screen Capture & Detection
+### 2. Screen Capture and Detection
 
 Use **OpenCV** or **YOLOv5/YOLOv7** to identify:
 
@@ -2731,7 +2733,7 @@ Java.perform(function() {
 | Hook Unity XRManager  | Force map load / room bypass      |
 
 
-## 🪙 Blockchain and NFT Game Exploits
+## Blockchain and NFT Game Exploits
 
 Blockchain-integrated games introduce new attack surfaces—smart contracts, token logic, and crypto wallets.
 
@@ -2975,7 +2977,7 @@ Simulating advanced adversary tradecraft in bot management and control using com
 
 ---
 
-### Threat Modeling & Use Case
+### Threat Modeling and Use Case
 
 | Use Case                      | Implementation                                | Red Team Equivalent          |
 |------------------------------|-----------------------------------------------|------------------------------|
@@ -3143,7 +3145,7 @@ while True:
 
 
 ---
-## Persistent Pathfinding & Resource Bots
+## Persistent Pathfinding and Resource Bots
 
 Enable repeatable, map-accurate automation for farming, mining, and patrols.
 
@@ -3442,7 +3444,7 @@ while True:
 
 ---
 
-### Anti-AntiCheat & Evasion
+### Anti-AntiCheat and Evasion
 
 | Detection Type   | Evasion Technique                          |
 |------------------|--------------------------------------------|
@@ -3622,7 +3624,7 @@ Anti-cheat scans memory for static patterns or hashes.
 
 ---
 
-### IAT & EAT Hook Detection
+### IAT and EAT Hook Detection
 
 Anti-cheat systems inspect import/export tables.
 
@@ -3767,7 +3769,7 @@ Flagged patterns:
 
 ---
 
-### Anti-Screenshot & Video Detection
+### Anti-Screenshot and Video Detection
 
 Anti-cheats may call `BitBlt`, `GetRenderTargetData`, or kernel video functions.
 
@@ -3901,7 +3903,7 @@ print(counts)  # Should show '110' with high probability
 
 ---
 
-### Challenges & Limitations
+### Challenges and Limitations
 
 - **NISQ Limitations**: Current quantum computers are noisy and have limited qubits.
 - **Algorithm Maturity**: Many quantum algorithms are still in the theoretical stage.
