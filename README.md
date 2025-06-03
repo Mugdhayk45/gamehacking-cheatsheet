@@ -192,12 +192,12 @@ This cheat sheet is structured for developers, security researchers, and reverse
     + [Example ConsoleBot_RemotePlay.py](#example-consolebot-remoteplaypy)
   * [Cloud Gaming Exploits](#cloud-gaming-exploits)
     + [Threat Modeling: Cloud Gaming](#threat-modeling-cloud-gaming)
-    + [Latency Manipulation Attacks (Beginner → Intermediate)](#latency-manipulation-attacks-beginner-intermediate)
+    + [Latency Manipulation Attacks (Beginner to Intermediate)](#latency-manipulation-attacks-beginner-to-intermediate)
     + [Tools Needed](#tools-needed-1)
     + [Example 1: Induced Lag to Exploit Hit Registration](#example-1-induced-lag-to-exploit-hit-registration)
     + [Use Cases](#use-cases)
     + [Adaptive Lagbots (Advanced)](#adaptive-lagbots-advanced)
-    + [Session Hijacking (Intermediate → Advanced)](#session-hijacking-intermediate-advanced)
+    + [Session Hijacking (Intermediate to Advanced)](#session-hijacking-intermediate-to-advanced)
     + [Attack Surface](#attack-surface)
     + [Example: WebSocket Hijack in Browser](#example-websocket-hijack-in-browser)
     + [Unauthorized Access to Game Sessions](#unauthorized-access-to-game-sessions)
@@ -210,7 +210,7 @@ This cheat sheet is structured for developers, security researchers, and reverse
     + [CTF / Red Team Use Cases](#ctf---red-team-use-cases)
   * [VR/AR Game Hacking](#vr-ar-game-hacking)
     + [Target Platforms](#target-platforms)
-    + [Spatial Spoofing (Beginner → Advanced)](#spatial-spoofing-beginner-advanced)
+    + [Spatial Spoofing (Beginner to Advanced)](#spatial-spoofing-beginner-to-advanced)
     + [Unity (IL2CPP) Position Injection](#unity-il2cpp-position-injection)
     + [OpenVR Pose Spoof (Linux/Win)](#openvr-pose-spoof-linux-win)
     + [Gesture / Input Spoofing](#gesture-input-spoofing)
@@ -2504,7 +2504,7 @@ Cloud gaming platforms (e.g., GeForce NOW, Xbox Cloud, Amazon Luna, Stadia) shif
 
 ---
 
-### Latency Manipulation Attacks (Beginner → Intermediate)
+### Latency Manipulation Attacks (Beginner to Intermediate)
 
 Cloud gaming relies on low-latency video streaming and responsive inputs. Injecting controlled network jitter, delay, or packet reordering can desynchronize gameplay or force input failures.
 
@@ -2554,7 +2554,7 @@ while True:
 
 ---
 
-### Session Hijacking (Intermediate → Advanced)
+### Session Hijacking (Intermediate to Advanced)
 
 Cloud gaming platforms maintain browser-based or WebSocket-based session tokens for game stream authentication.
 
@@ -2660,7 +2660,7 @@ Virtual and Augmented Reality (VR/AR) introduce new attack vectors—spatial spo
 | Unity XR         | Unity’s VR abstraction    | Memory manipulation                |
 | ARKit / ARCore   | iOS/Android AR frameworks | Sensor spoofing                    |
 
-### Spatial Spoofing (Beginner → Advanced)
+### Spatial Spoofing (Beginner to Advanced)
 
 Manipulate 6DoF (degrees of freedom) tracking to teleport, walk through walls, or gain speed boosts.
 
