@@ -155,7 +155,7 @@ This cheat sheet is structured for developers, security researchers, and reverse
     + [Denuvo Specific Staging](#denuvo-specific-staging)
     + [Common Loader Signatures](#common-loader-signatures)
     + [DRM Loader Fuzzing / Mutation](#drm-loader-fuzzing---mutation)
-    + [🛠️ DRM Tooling Ecosystem](#----drm-tooling-ecosystem)
+    + [DRM Tooling Ecosystem](#--drm-tooling-ecosystem)
   * [AI/ML Augmentations](#ai-ml-augmentations)
     + [Core Techniques](#core-techniques-10)
     + [Generative Cheats](#generative-cheats)
@@ -1222,7 +1222,7 @@ Heap Spray + UAF:
 - Use crafted `.inv` file.
 - Reallocate freed memory with attacker-controlled structure.
 
-### 📂 Savegame Exploits
+### Savegame Exploits
 
 Modern games often parse custom `.sav`, `.json`, or `.bin` save formats.
 
@@ -1231,7 +1231,7 @@ Modern games often parse custom `.sav`, `.json`, or `.bin` save formats.
 - Embedded scripting fields
 - Reused legacy fields (e.g., Lua in old engines)
 
-### 🧨 Save Exploit Example:
+### Save Exploit Example:
 
 ```json
 {
@@ -2127,7 +2127,7 @@ Use LIEF to:
 
 Combine with AFL++ to fuzz staged binaries.
 
-### 🛠️ DRM Tooling Ecosystem
+### DRM Tooling Ecosystem
 
 | Tool | Purpose |
 |------|---------|
